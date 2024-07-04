@@ -1,0 +1,8 @@
+QUESTION LINK:-
+https://leetcode.com/problems/recyclable-and-low-fat-products/?envType=study-plan-v2&envId=top-sql-50
+
+SOLUTION:-
+
+SELECT PRODUCT_ID
+FROM PRODUCTS
+WHERE LOW_FATS='Y' AND RECYCLABLE='Y';
