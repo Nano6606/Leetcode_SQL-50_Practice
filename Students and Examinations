@@ -1,0 +1,11 @@
+QUESTION LINK:-
+https://leetcode.com/problems/students-and-examinations/description/?envType=study-plan-v2&envId=top-sql-50
+
+SOLUTION:-
+
+SELECT e.student_id, e.student_name, su.subject_name, COALESCE(COUNT(ex.student_id), 0) AS attended_exams
+FROM Students e
+CROSS JOIN Subjects su
+LEFT JOIN Examinations ex ON e.student_id = ex.student_id AND su.subject_name = ex.subject_name
+GROUP BY e.student_id, su.subject_name
+ORDER BY e.student_id, su.subject_name;
