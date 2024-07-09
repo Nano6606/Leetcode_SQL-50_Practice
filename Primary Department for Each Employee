@@ -1,0 +1,10 @@
+QUESTION LINK:-
+https://leetcode.com/problems/primary-department-for-each-employee/description/?envType=study-plan-v2&envId=top-sql-50
+
+SOLUTION:-
+
+SELECT employee_id, department_id 
+FROM (SELECT *, 
+      COUNT(employee_id) OVER(PARTITION BY employee_id) AS EmployeeCount
+    FROM Employee) EmployeePartition 
+WHERE EmployeeCount = 1 OR primary_flag = 'Y';
