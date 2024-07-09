@@ -1,0 +1,19 @@
+QUESTION LINK:-
+https://leetcode.com/problems/last-person-to-fit-in-the-bus/description/?envType=study-plan-v2&envId=top-sql-50
+
+SOLUTION:-
+
+WITH RunningTotal AS (
+  SELECT q.person_id, 
+  q.person_name, 
+  q.weight, q.turn, 
+  SUM(q.weight) OVER (ORDER BY q.turn) AS running_total
+  FROM Queue AS q
+)
+SELECT person_name
+FROM RunningTotal
+WHERE running_total <= 1000 AND turn = (
+  SELECT MAX(turn)
+  FROM RunningTotal
+  WHERE running_total <= 1000
+);
