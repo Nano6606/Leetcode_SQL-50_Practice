@@ -1,0 +1,13 @@
+QUESTION LINK:-
+https://leetcode.com/problems/the-number-of-employees-which-report-to-each-employee/description/?envType=study-plan-v2&envId=top-sql-50
+
+SOLUTION:-
+
+SELECT A.employee_id AS employee_id, A.name AS name,
+    COUNT(B.employee_id) AS reports_count,
+    ROUND(AVG(B.age), 0) AS average_age
+FROM Employees A
+LEFT JOIN Employees B ON A.employee_id = B.reports_to
+WHERE B.employee_id IS NOT NULL  -- Ensures we only count managers who have direct reports
+GROUP BY A.employee_id, A.name
+ORDER BY A.employee_id;
