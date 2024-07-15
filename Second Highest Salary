@@ -1,0 +1,28 @@
+QUESTION LINK:-
+https://leetcode.com/problems/second-highest-salary/?envType=study-plan-v2&envId=top-sql-50
+
+SOLUTION 1:-
+
+SELECT MAX(salary) AS SecondHighestSalary
+FROM Employee
+WHERE salary < (SELECT MAX(salary) FROM Employee);
+
+
+SOLUTION 2:-
+
+SELECT MAX(salary) AS SecondHighestSalary
+FROM Employee
+WHERE salary < (SELECT MAX(salary) FROM Employee);
+
+
+SOLUTION 3:-
+
+SELECT CASE
+        WHEN COUNT(*) < 2 THEN NULL
+        ELSE (
+            SELECT MAX(salary)
+            FROM Employee
+            WHERE salary < (SELECT MAX(salary) FROM Employee)
+        )
+    END AS SecondHighestSalary
+FROM Employee;
