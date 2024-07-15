@@ -1,0 +1,33 @@
+QUESTION LINK:-
+https://leetcode.com/problems/movie-rating/description/?envType=study-plan-v2&envId=top-sql-50
+
+SOLUTION:-
+
+WITH UserRatings AS (
+    SELECT name
+    FROM Users
+    JOIN (
+        SELECT user_id, COUNT(DISTINCT movie_id) AS rated_movies
+        FROM MovieRating
+        GROUP BY user_id
+    ) AS user_ratings
+    ON Users.user_id = user_ratings.user_id
+    ORDER BY rated_movies DESC, name
+    LIMIT 1
+),
+MovieRatings AS (
+    SELECT title
+    FROM Movies
+    JOIN (
+        SELECT movie_id, AVG(rating) AS avg_rating
+        FROM MovieRating
+        WHERE created_at BETWEEN '2020-02-01' AND '2020-02-29'
+        GROUP BY movie_id
+    ) AS movie_avg_ratings
+    ON Movies.movie_id = movie_avg_ratings.movie_id
+    ORDER BY avg_rating DESC, title
+    LIMIT 1
+)
+SELECT name AS results FROM UserRatings
+UNION ALL
+SELECT title AS results FROM MovieRatings;
