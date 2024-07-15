@@ -1,0 +1,13 @@
+QUESTION LINK:-
+https://leetcode.com/problems/find-users-with-valid-e-mails/description/?envType=study-plan-v2&envId=top-sql-50
+
+SOLUTION:-
+
+SELECT user_id, name, mail
+FROM Users
+WHERE mail LIKE '%@leetcode.com'  -- Check for the correct domain
+  AND mail NOT LIKE '%.@leetcode.com'  -- Ensure prefix does not start with a period
+  AND REGEXP_LIKE(
+    SUBSTRING(mail, 1, LENGTH(mail) - LENGTH('@leetcode.com')), 
+    '^[a-zA-Z][a-zA-Z0-9_.-]*$'
+  );
