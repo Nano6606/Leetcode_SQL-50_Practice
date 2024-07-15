@@ -1,0 +1,12 @@
+QUESTION LINK:-
+https://leetcode.com/problems/delete-duplicate-emails/description/?envType=study-plan-v2&envId=top-sql-50
+
+SOLUTION:-
+
+WITH MinId AS (
+    SELECT MIN(id) AS id
+    FROM Person
+    GROUP BY email
+)
+DELETE FROM Person
+WHERE id NOT IN (SELECT id FROM MinId);
