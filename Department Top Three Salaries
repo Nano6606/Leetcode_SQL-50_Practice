@@ -1,0 +1,23 @@
+QUESTION LINK:-
+https://leetcode.com/problems/department-top-three-salaries/?envType=study-plan-v2&envId=top-sql-50
+
+SOLUTION:-
+
+WITH RankedSalaries AS (
+    SELECT
+        e.id,
+        e.name AS Employee,
+        e.salary,
+        e.departmentId,
+        d.name AS Department,
+        DENSE_RANK() OVER (PARTITION BY e.departmentId ORDER BY e.salary DESC) AS salary_rank
+    FROM Employee e
+    JOIN Department d ON e.departmentId = d.id
+)
+SELECT
+    r.Department,
+    r.Employee,
+    r.salary
+FROM RankedSalaries r
+WHERE r.salary_rank <= 3
+ORDER BY r.Department, r.salary DESC;
